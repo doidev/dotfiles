@@ -1,4 +1,8 @@
+" in terminal type `nvim` to execute and run nvim then type `:echo
+" stdpath('config')` to see the location of config file of nvim. This is very
+" important file to run config, themes, plugin, key bindings of nvim.
 " config file init.vim in ~/.config/nvim/init.vim
+"
 "*****************************************************************************
 "" Vim-Plug core to manage all plugins link ref https://github.com/junegunn/vim-plug
 "*****************************************************************************
