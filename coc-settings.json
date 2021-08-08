@@ -1,0 +1,19 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "description": "Configuration file for coc.nvim",
+  "eslint.autoFix": true,
+  "eslint.autoFixOnSave": true,
+  "eslint.quiet": true,
+  "stylelintplus.autoFixOnSave": true,
+  "diagnostic.checkCurrentLine": true,
+  "diagnostic.errorSign": "✘",
+  "diagnostic.infoSign": "ℹ",
+  "diagnostic.hintSign": "➤",
+  "diagnostic.enableHighlightLineNumber": true,
+  "html.enable":true,
+  "html.validate.scripts": true,
+  "html.format.enable":true,
+
+  "coc.preferences.colorSupport": true,
+  "highlight.colors.enable": true
+}
