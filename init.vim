@@ -1,3 +1,6 @@
+" in terminal type `nvim` to execute and run nvim then type `:echo
+" stdpath('config')` to see the location of config file of nvim. This is very
+" important file to run config, themes, plugin, key bindings of nvim.
 " config file init.vim in ~/.config/nvim/init.vim
 "*****************************************************************************
 "" Vim-Plug core to manage all plugins link ref https://github.com/junegunn/vim-plug
@@ -34,6 +37,8 @@ Plug 'tpope/vim-surround'
 Plug 'joshdick/onedark.vim'
 " theme dracula hight contract
 Plug 'dracula/vim',
+" gruvbox theme
+Plug 'morhetz/gruvbox'
 " highlight syntax js, jsx, css, html5
 Plug 'sheerun/vim-polyglot'
 " easy move with jump. Consider NOT use this 
@@ -129,8 +134,9 @@ set smartcase                             " depend of pattern lower or Upper
 "" Visual, Theme Settings
 "*****************************************************************************
 " syntax on
-" colorscheme onedark
-colorscheme dracula
+colorscheme onedark
+" colorscheme dracula
+" colorscheme gruvbox
 
 " turn on airline powerline symbol by downloand install fonts https://github.com/powerline/fonts via ./install.sh in folder fonts-master https://www.youtube.com/watch?v=-r6Sj70Ziws&ab_channel=TheFrugalComputerGuy
 let g:airline_powerline_fonts = 1
@@ -211,9 +217,6 @@ nmap gf :diffget //2<CR>
 nmap gj :diffget //3<CR>
 " set :Gdiffsplit to 3 columns vertical
 set diffopt+=vertical
-
-
-
 
 "/vim-fugitive'
 " set number relativenumber
@@ -441,21 +444,11 @@ let $FZF_DEFAULT_COMMAND =  "find * -path '*/\.*' -prune -o -path 'node_modules/
 
 
 " fzf.vim
-" Customize fzf colors to match your color scheme
-" let g:fzf_colors =
-" \ { 'fg':      ['fg', 'Normal'],
-"   \ 'bg':      ['bg', 'Normal'],
-"   \ 'hl':      ['fg', 'Comment'],
-"   \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-"   \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-"   \ 'hl+':     ['fg', 'Statement'],
-"   \ 'info':    ['fg', 'PreProc'],
-"   \ 'border':  ['fg', 'Ignore'],
-"   \ 'prompt':  ['fg', 'Conditional'],
-"   \ 'pointer': ['fg', 'Exception'],
-"   \ 'marker':  ['fg', 'Keyword'],
-"   \ 'spinner': ['fg', 'Label'],
-"   \ 'header':  ['fg', 'Comment'] }
+" Instal fzf with preview hightlight color install bat as link
+" https://github.com/junegunn/fzf.vim#dependencies    
+" For syntax-highlighted preview, install bat
+" Ag requires The Silver Searcher (ag)
+" Rg requires ripgrep (rg)
 
 " The Silver Searcher
 if executable('ag')
@@ -495,6 +488,8 @@ inoremap <silent><expr> <cr> "\<c-g>u\<CR>"
 " 2. Install python3 (if not install yet)
 " 3. Install pip (if not install yet) `sudo apt-get install python3-pip` 
 " 4. Then `cd ~/.config/nvim/plugged/vim-hexokinase` then run command is `make hexokinase`. Done 
+" Run the command to approve eslint :CocCommand eslint.showOutputChannel -->
+" select 1 to allow anywhere
 " format scss
 " autocmd FileType scss setl iskeyword+=@-@
 
