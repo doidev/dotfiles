@@ -1,8 +1,4 @@
-" in terminal type `nvim` to execute and run nvim then type `:echo
-" stdpath('config')` to see the location of config file of nvim. This is very
-" important file to run config, themes, plugin, key bindings of nvim.
 " config file init.vim in ~/.config/nvim/init.vim
-"
 "*****************************************************************************
 "" Vim-Plug core to manage all plugins link ref https://github.com/junegunn/vim-plug
 "*****************************************************************************
@@ -484,7 +480,8 @@ endif
 " let g:NERDTreeWinSize = 50
 " set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
 
-
+" In nvim run :CocConfig to auto create and open
+" `~/.config/nvim/coc-settings.json` for coc setting
 " COC. Please remember run command $:CocInstall <extensions> to install
 " extensions. Examples: CocInstall coc-eslint
 let g:coc_global_extensions = ['coc-css', 'coc-eslint', 'coc-json', 'coc-tsserver','coc-stylelintplus','coc-snippets', 'coc-pairs']
@@ -493,17 +490,13 @@ inoremap <silent><expr> <tab> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<T
 inoremap <silent><expr> <cr> "\<c-g>u\<CR>"
 " coc-spippets how to use? 1. type command `:CocCommand snippets.editSnippets`
 " to open the list of snippets
-" fix this error https://github.com/neovim/neovim/issues/12234 . python3
-" --version. Then install python3 as link https://phoenixnap.com/kb/how-to-install-python-3-ubuntu . Then in nvim run `:checkhealth provider` then install pip
-" sudo apt-get install python3-pip     then install below
-"python3 -m pip install --user --upgrade pynvim
+" fix error hexokinase https://github.com/neovim/neovim/issues/12234
+" 1. Install golang.
+" 2. Install python3 (if not install yet)
+" 3. Install pip (if not install yet) `sudo apt-get install python3-pip` 
+" 4. Then `cd ~/.config/nvim/plugged/vim-hexokinase` then run command is `make hexokinase`. Done 
 " format scss
 " autocmd FileType scss setl iskeyword+=@-@
-
-" neovide config set up
-" https://github.com/Kethku/neovide/wiki/Configuration#global-vim-settings 
-
-set guifont=Cascadia\ Code\ Regular:h15
 
 
 

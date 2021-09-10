@@ -1,6 +1,5 @@
-# install dracula theme for alacritty on this link https://draculatheme.com/alacritty
-import:
-  - ~/.config/alacritty/alacritty-dracula/dracula.yml
+# install alacritty themes with command `sudo apt install alacritty-themes` 
+# select new theme with command `alacritty-themes` then use arrow key to navigate and Enter to select theme.
 # Configuration for Alacritty, the GPU enhanced terminal emulator.
 
 # Import additional configuration files
