@@ -2,13 +2,13 @@
 " stdpath('config')` to see the location of config file of nvim. This is very
 " important file to run config, themes, plugin, key bindings of nvim.
 " config file init.vim in ~/.config/nvim/init.vim
+"
 "*****************************************************************************
 "" Vim-Plug core to manage all plugins link ref https://github.com/junegunn/vim-plug
 "*****************************************************************************
 " Double quote beginning mean this is commented
 " for ubuntu the folder to store all plugins is '~/.config/nvim/plugged'
 call plug#begin('~/.config/nvim/plugged') 
-
 " Insert or delete brackets, parens, quotes in pair.
 Plug 'jiangmiao/auto-pairs'
 " Make your Vim/Neovim as smart as VSCode
@@ -34,12 +34,8 @@ Plug 'tpope/vim-fugitive'
 " add blockquotes, tags... surround a selected area
 Plug 'tpope/vim-surround'
 " onedarkthem less contract
-Plug 'joshdick/onedark.vim'
-" theme dracula hight contract
 Plug 'dracula/vim',
-" gruvbox theme
-Plug 'morhetz/gruvbox'
-" highlight syntax js, jsx, css, html5
+" highlight syntax js, jsx, css, html5 https://github.com/sheerun/vim-polyglot
 Plug 'sheerun/vim-polyglot'
 " easy move with jump. Consider NOT use this 
 " Plug 'easymotion/vim-easymotion'
@@ -58,8 +54,13 @@ Plug 'justinmk/vim-sneak'
 " :MarkdownPreview then browser automatically open it and
 " :MarkdownPreviewStop to stop. This combine with joplin terminal note
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
+" snippets https://www.chrisatmachine.com/Neovim/17-snippets/
+Plug 'honza/vim-snippets'
+" https://github.com/iberianpig/tig-explorer.vim   
+Plug 'iberianpig/tig-explorer.vim'
 
 call plug#end()
+
 
 "*****************************************************************************
 "" Basic Setup " https://neovim.io/doc/user/vim_diff.html
@@ -68,24 +69,21 @@ call plug#end()
 "html, css file. Then we know how does it look like of the color
 set termguicolors
 let g:Hexokinase_highlighters = ['backgroundfull']
-" filetype plugin indent on
+" set number relativenumber
+" set number
 set backspace=2                         " Backspace deletes like most programs in insert mode
 set tabstop=2
 set shiftwidth=2
 set hidden
-" set laststatus=2
 set pumheight=10                        " Makes popup menu smaller
 " set ruler              			            " Show the cursor position all the time
 set cmdheight=1                         " More space for displaying messages can be 2
 " set wrap                                " Display long lines as just one
 " set textwidth=80
 set linebreak                            " wrap long lines at a character in 'breakat' rather
-" set breakat=" "
 " set smarttab                            " Makes tabbing smarter will realize you have 2 vs 4
 set expandtab                           " Converts tabs to spaces
 set smartindent                         " Makes indenting smart
-" set autoindent                          " Good auto indent
-" set autoread
 set noshowmode                          " We don't need to see things like -- INSERT -- anymore
 set nobackup                            " This is recommended by coc
 set nowritebackup                       " This is recommended by coc
@@ -107,6 +105,7 @@ set mousemodel=popup_setpos
 " set modeline
 " set modelines=10
 
+" set notitle
 set noerrorbells
 set noswapfile
 " set colorcolumn=80 
@@ -134,12 +133,13 @@ set smartcase                             " depend of pattern lower or Upper
 "" Visual, Theme Settings
 "*****************************************************************************
 " syntax on
-colorscheme onedark
-" colorscheme dracula
-" colorscheme gruvbox
+colorscheme dracula
 
 " turn on airline powerline symbol by downloand install fonts https://github.com/powerline/fonts via ./install.sh in folder fonts-master https://www.youtube.com/watch?v=-r6Sj70Ziws&ab_channel=TheFrugalComputerGuy
 let g:airline_powerline_fonts = 1
+" https://jdhao.github.io/2018/09/29/Switching_buffers_quickly_Neovim/
+let g:airline#extensions#tabline#enabled = 0
+let g:airline#extensions#tabline#buffer_nr_show = 0 "1 to show buffer no.
 
 " hightlight comment in italic 
 " hi Comment cterm=italic
@@ -219,8 +219,6 @@ nmap gj :diffget //3<CR>
 set diffopt+=vertical
 
 "/vim-fugitive'
-" set number relativenumber
-" set number
 
 " Preview markdown file 
 nmap <C-m> <Plug>MarkdownPreview
@@ -349,12 +347,13 @@ nnoremap <silent><leader>p :GFiles --cached --others --exclude-standard<CR>
 nnoremap <silent><leader>o :Files<CR>
 " Open list of buffers (window open)
 nnoremap <silent><leader>b :Buffers<CR>
+
 " Create NEW buffer
-nnoremap <silent><leader>n :e! ~/buff<CR>
+" nnoremap <silent><leader>n :e! ~/buff<CR>
 " close buffer. Consider to active this due to it will close buffer 
-" nnoremap <silent><leader>q :bd!<cr>
+nnoremap <silent><leader>q :bd!<cr>
 " close window when split window
-nnoremap <silent><leader>q :close<cr>
+" nnoremap <silent><leader>q :close<cr>
 " EXIT vim
 nnoremap <silent><leader>e :q!<cr>
 " Open list of Files History
@@ -385,7 +384,7 @@ nnoremap <silent><leader>l $
 vnoremap < <gv
 vnoremap > >gv
 
-"In Visual Mode move line up, down when in visual mode
+  "In Visual Mode move line up, down when in visual mode
 vnoremap J :m '>+1<CR>gv=gv
 vnoremap K :m '<-2<CR>gv=gv
 
@@ -421,6 +420,7 @@ nmap <silent><F12> <Plug>(coc-definition)
 nmap <silent>[g <Plug>(coc-diagnostic-prev)
 nmap <silent>]g <Plug>(coc-diagnostic-next)
 
+
 " Use H to show documentation in preview window when hover.
 nnoremap <silent> H :call <SID>show_documentation()<CR>
 function! s:show_documentation()
@@ -442,11 +442,10 @@ set wildmode=list:longest,list:full
 set wildignore+=*.o,*.obj,.git,*.rbc,*.pyc,__pycache__
 let $FZF_DEFAULT_COMMAND =  "find * -path '*/\.*' -prune -o -path 'node_modules/**' -prune -o -path 'target/**' -prune -o -path 'dist/**' -prune -o  -type f -print -o -type l -print 2> /dev/null"
 
-
-" fzf.vim
-" Instal fzf with preview hightlight color install bat as link
+" Instal fzf with preview hightlight color install bat as link color preview
 " https://github.com/junegunn/fzf.vim#dependencies    
-" For syntax-highlighted preview, install bat
+" https://awesomeopensource.com/project/yuki-yano/fzf-preview.vim
+" For syntax-highlighted preview, install bat https://awesomeopensource.com/project/sharkdp/bat
 " Ag requires The Silver Searcher (ag)
 " Rg requires ripgrep (rg)
 
@@ -473,27 +472,26 @@ endif
 " let g:NERDTreeWinSize = 50
 " set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
 
-" In nvim run :CocConfig to auto create and open
-" `~/.config/nvim/coc-settings.json` for coc setting
+" Command :CocConfig to open coc-settings.json file
 " COC. Please remember run command $:CocInstall <extensions> to install
 " extensions. Examples: CocInstall coc-eslint
 let g:coc_global_extensions = ['coc-css', 'coc-eslint', 'coc-json', 'coc-tsserver','coc-stylelintplus','coc-snippets', 'coc-pairs']
+
 " bind `tab` for autocompletion https://stackoverflow.com/questions/67370086/how-to-remap-coc-nvim-autocomplete-key
 inoremap <silent><expr> <tab> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<TAB>"
 inoremap <silent><expr> <cr> "\<c-g>u\<CR>"
 " coc-spippets how to use? 1. type command `:CocCommand snippets.editSnippets`
 " to open the list of snippets
-" fix error hexokinase https://github.com/neovim/neovim/issues/12234
-" 1. Install golang.
-" 2. Install python3 (if not install yet)
-" 3. Install pip (if not install yet) `sudo apt-get install python3-pip` 
-" 4. Then `cd ~/.config/nvim/plugged/vim-hexokinase` then run command is `make hexokinase`. Done 
-" Run the command to approve eslint :CocCommand eslint.showOutputChannel -->
-" select 1 to allow anywhere
+" fix this error https://github.com/neovim/neovim/issues/12234 . python3
+" --version. Then install python3 as link https://phoenixnap.com/kb/how-to-install-python-3-ubuntu . Then in nvim run `:checkhealth provider` then install pip
+" sudo apt-get install python3-pip     then install below
+"python3 -m pip install --user --upgrade pynvim
 " format scss
 " autocmd FileType scss setl iskeyword+=@-@
+" Run the command to approve eslint :CocCommand eslint.showOutputChannel -->
+" select 1 to allow anywhere
 
-
-
-
-
+" fold nvim
+" select range by `v` then to fold type zf and unfold is stand at fold area
+" then type zo 
+set foldmethod=marker
