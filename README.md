@@ -1,3 +1,5 @@
+## Summary picture
+![nvim ecosystem](./Alacritty-zsh-tmux-neovim.png)
 1. Install Alacritty terminal, then install alaccritty themes with command `sudo apt install alacritty-themes`. Run `alacritty-themes` to open list themes selection. 
 1. Install [neovim (nvim)](https://neovim.io) then install [vim-plug](https://github.com/junegunn/vim-plug) to manage all the plug-in to transform vim from text editor to IDE (Intergrated Development Environment)
 1. Install my favorite - Cascadia code font as [Link](https://ubuntu.pkgs.org/20.04/ubuntu-universe-amd64/fonts-cascadia-code_1911.21-1_all.deb.html)
