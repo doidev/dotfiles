@@ -1,5 +1,5 @@
 ## Summary picture
-![nvim ecosystem](./Alacritty-zsh-tmux-neovim.png)
+![nvim ecosystem](./alacritty-zsh-tmux-neovim.png)
 ---
 
 Explain the coding flow
