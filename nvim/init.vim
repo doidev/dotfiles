@@ -34,6 +34,7 @@ Plug 'tpope/vim-fugitive'
 " add blockquotes, tags... surround a selected area
 Plug 'tpope/vim-surround'
 " onedarkthem less contract
+Plug 'joshdick/onedark.vim'
 Plug 'dracula/vim',
 " highlight syntax js, jsx, css, html5 https://github.com/sheerun/vim-polyglot
 Plug 'sheerun/vim-polyglot'
@@ -56,9 +57,18 @@ Plug 'justinmk/vim-sneak'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
 " snippets https://www.chrisatmachine.com/Neovim/17-snippets/
 Plug 'honza/vim-snippets'
-" https://github.com/iberianpig/tig-explorer.vim   
-Plug 'iberianpig/tig-explorer.vim'
+" a simple, unified, single tabpage interface that lets you easily review all changed files for any git rev.
+Plug 'sindrets/diffview.nvim'
+" https://github.com/lukas-reineke/indent-blankline.nvim
+" Plug 'lukas-reineke/indent-blankline.nvim'
+" https://vimawesome.com/plugin/vim-quickrun
+" Plug 'thinca/vim-quickrun'
 
+" https://vimawesome.com/plugin/obsession-vim  
+" https://tmuxcheatsheet.com/tmux-plugins-tools/?full_name=tmux-plugins%2Ftmux-resurrect
+" Plug 'tpope/vim-obsession'
+" scrollbar for vim 
+" Plug 'Xuyuanp/scrollbar.nvim'
 call plug#end()
 
 
@@ -69,8 +79,8 @@ call plug#end()
 "html, css file. Then we know how does it look like of the color
 set termguicolors
 let g:Hexokinase_highlighters = ['backgroundfull']
-" set number relativenumber
-" set number
+set number relativenumber
+set number
 set backspace=2                         " Backspace deletes like most programs in insert mode
 set tabstop=2
 set shiftwidth=2
@@ -108,8 +118,8 @@ set mousemodel=popup_setpos
 " set notitle
 set noerrorbells
 set noswapfile
-" set colorcolumn=80 
-" hi ColorColumn ctermbg=0 guibg=#333333
+set colorcolumn=120 
+hi ColorColumn ctermbg=0 guibg=black
 
 " highlight clear SignColumn
 " hi Pmenu guibg=#3d3d3d gui=NONE
@@ -128,12 +138,14 @@ set ignorecase                            " ignore Upper or Lowercase
 set smartcase                             " depend of pattern lower or Upper
 " set hlsearch                              " hightlight search \
 " set incsearch                             " set increment next search result
-
+" https://vimhelp.org/options.txt.html#%27statusline%27
+set tabline=%f\ \|\ %L
 "*****************************************************************************
 "" Visual, Theme Settings
 "*****************************************************************************
 " syntax on
 colorscheme dracula
+" colorscheme onedark
 
 " turn on airline powerline symbol by downloand install fonts https://github.com/powerline/fonts via ./install.sh in folder fonts-master https://www.youtube.com/watch?v=-r6Sj70Ziws&ab_channel=TheFrugalComputerGuy
 let g:airline_powerline_fonts = 1
@@ -148,22 +160,27 @@ let g:airline#extensions#tabline#buffer_nr_show = 0 "1 to show buffer no.
 hi! Normal ctermbg=NONE guibg=NONE 
 hi! NonText ctermbg=NONE guibg=NONE guifg=NONE ctermfg=NONE
 
+" Customize cursor line
+highlight CursorLine gui=underline cterm=NONE  
+" highlight CursorLineNr cterm=Bold ctermbg=Black ctermfg=White
+
+
 "let g:onedark_hide_endofbuffer=1
 "let g:onedark_terminal_italics=1
 "let g:onedark_termcolors=256
 
 "Floaterm is the termimal popup while using vim, we can use to check git... config
-let g:floaterm_keymap_toggle = '<leader>t'
+" let g:floaterm_keymap_toggle = '<leader>t'
 "let g:floaterm_keymap_toggle = '<F1>'
 "let g:floaterm_keymap_next   = '<F2>'
 "let g:floaterm_keymap_prev   = '<F3>'
 "let g:floaterm_keymap_new    = '<F4>'
-let g:floaterm_gitcommit='floaterm'
-let g:floaterm_autoinsert=1
-let g:floaterm_width=0.8
-let g:floaterm_height=0.8
-let g:floaterm_wintitle=0
-let g:floaterm_autoclose=1
+" let g:floaterm_gitcommit='floaterm'
+" let g:floaterm_autoinsert=1
+" let g:floaterm_width=0.95
+" let g:floaterm_height=0.95
+" let g:floaterm_wintitle=0
+" let g:floaterm_autoclose=1
 " /Floaterm
 
 " vim-sneak use to move quick to any word within the screen from current
@@ -224,6 +241,13 @@ set diffopt+=vertical
 nmap <C-m> <Plug>MarkdownPreview
 
 " set statusline=%F%m%r%h%w%=(%{&ff}/%Y)\ (line\ %l\/%L,\ col\ %c)\
+" scrollbar.nvim'
+" augroup ScrollbarInit
+"   autocmd!
+"   autocmd CursorMoved,VimResized,QuitPre * silent! lua require('scrollbar').show()
+"   autocmd WinEnter,FocusGained           * silent! lua require('scrollbar').show()
+"   autocmd WinLeave,BufLeave,BufWinLeave,FocusLost            * silent! lua require('scrollbar').clear()
+" augroup end
 
 "*****************************************************************************
 "" Abbreviations
@@ -351,7 +375,7 @@ nnoremap <silent><leader>b :Buffers<CR>
 " Create NEW buffer
 " nnoremap <silent><leader>n :e! ~/buff<CR>
 " close buffer. Consider to active this due to it will close buffer 
-nnoremap <silent><leader>q :bd!<cr>
+nnoremap <silent><leader>q :bd<cr>
 " close window when split window
 " nnoremap <silent><leader>q :close<cr>
 " EXIT vim
@@ -370,6 +394,7 @@ vnoremap <silent><leader>j %
 
 " Fast save
 nnoremap <silent><leader>s :w!<cr>
+" inoremap <silent><leader>s <ESC>:w!<cr>
 " split current window vertical on the right 'set splitright'  
 nnoremap <silent><Leader>w :vsplit<CR>
 " split current window horizontal on bottom 'set splitbelow'
@@ -420,6 +445,11 @@ nmap <silent><F12> <Plug>(coc-definition)
 nmap <silent>[g <Plug>(coc-diagnostic-prev)
 nmap <silent>]g <Plug>(coc-diagnostic-next)
 
+nmap đ dd
+inoremap {thí} thiss
+inoremap jj <ESC>
+inoremap jk <ESC>
+
 
 " Use H to show documentation in preview window when hover.
 nnoremap <silent> H :call <SID>show_documentation()<CR>
@@ -449,7 +479,36 @@ let $FZF_DEFAULT_COMMAND =  "find * -path '*/\.*' -prune -o -path 'node_modules/
 " Ag requires The Silver Searcher (ag)
 " Rg requires ripgrep (rg)
 
-" The Silver Searcher
+" Default fzf layout https://github.com/junegunn/fzf/blob/master/README-VIM.md
+" - Popup window (center of the screen)
+let g:fzf_layout = { 'window': { 'width': 1, 'height': 1 } }
+" let g:fzf_layout = { 'down':  '40%'}
+
+" This is the default option:
+"   - Preview window on the right with 50% width
+"   - CTRL-/ will toggle preview window.
+" - Note that this array is passed as arguments to fzf#vim#with_preview function.
+" - To learn more about preview window options, see `--preview-window` section of `man fzf`.
+" let g:fzf_preview_window = ['right:50%']
+
+" Preview window on the upper side of the window with 40% height,
+" hidden by default, ctrl-/ to toggle
+let g:fzf_preview_window = ['down:50%']
+
+" Empty value to disable preview window altogether
+" let g:fzf_preview_window = []
+
+
+
+" Open files in splits
+" Consider using CTRL-X/V/T key bindings of the default :FZF command instead.
+" Reverse the layout to make the FZF list top-down
+" let $FZF_DEFAULT_OPTS='--layout=reverse'
+
+
+
+
+"The Silver Searcher
 if executable('ag')
   let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git -g ""'
   set grepprg=ag\ --nogroup\ --nocolor
@@ -475,7 +534,7 @@ endif
 " Command :CocConfig to open coc-settings.json file
 " COC. Please remember run command $:CocInstall <extensions> to install
 " extensions. Examples: CocInstall coc-eslint
-let g:coc_global_extensions = ['coc-css', 'coc-eslint', 'coc-json', 'coc-tsserver','coc-stylelintplus','coc-snippets', 'coc-pairs']
+let g:coc_global_extensions = ['coc-css','coc-eslint8', 'coc-html' ,'coc-eslint', 'coc-json', 'coc-tsserver','coc-stylelintplus','coc-snippets', 'coc-pairs']
 
 " bind `tab` for autocompletion https://stackoverflow.com/questions/67370086/how-to-remap-coc-nvim-autocomplete-key
 inoremap <silent><expr> <tab> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<TAB>"
@@ -495,3 +554,23 @@ inoremap <silent><expr> <cr> "\<c-g>u\<CR>"
 " select range by `v` then to fold type zf and unfold is stand at fold area
 " then type zo 
 set foldmethod=marker
+" diffview.nvim'
+nmap gv :DiffviewClose<CR>
+nmap go :DiffviewOpen<CR>
+nmap gp :DiffviewFileHistory<CR>
+" /diffview.nvim'
+"
+"
+" https://mahmoudashraf.dev/blog/no-more-postman-just-curl-and-vim/
+" command Exec set splitright | vnew | set filetype=sh | read !sh #
+" Vim abbreviations https://jovica.org/posts/vim_abbreviations/
+iabbrev thí this
+iabbrev ré res
+iabbrev uéc usec
+iabbrev í is
+" iabbrev clg console.log()<Left>
+" iabbrev cc /*<CR><CR>/<Up> 
+
+" https://github.com/neoclide/coc.nvim/issues/856
+let g:coc_node_path = '/home/sen/.nvm/versions/node/v14.17.6/bin/node'
+

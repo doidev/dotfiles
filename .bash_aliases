@@ -76,20 +76,7 @@ alias node16="nvm use 16.10.0"
 alias node14="nvm use 14.17.6"
 alias nvmi16="nvm install 16.10.0"
 alias nvmls="nvm ls" #entry in green, with an arrow on the left, is the current version in use
-alias n16="n 16.10.0"
-alias n14="n 14.17.6"
 
-# ibus-bamboo
-export GTK_IM_MODULE=ibus
-export QT_IM_MODULE=ibus
-export XMODIFIERS=@im=ibus
-# export bash
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-# install golang MUST
-export PATH=$PATH:/usr/local/go/bin
 
 
 

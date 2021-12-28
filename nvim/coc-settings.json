@@ -4,6 +4,7 @@
   "eslint.autoFix": true,
   "eslint.autoFixOnSave": true,
   "eslint.quiet": true,
+  "eslint.format.enable": true,
   "stylelintplus.autoFixOnSave": true,
   "diagnostic.checkCurrentLine": true,
   "diagnostic.errorSign": "✘",
@@ -13,6 +14,7 @@
   "html.enable":true,
   "html.validate.scripts": true,
   "html.format.enable":true,
+  "javascript.validate.enable": false,
 
   "coc.preferences.colorSupport": true,
   "highlight.colors.enable": true,
