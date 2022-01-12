@@ -2,8 +2,7 @@
 " stdpath('config')` to see the location of config file of nvim. This is very
 " important file to run config, themes, plugin, key bindings of nvim.
 " config file init.vim in ~/.config/nvim/init.vim
-"
-"*****************************************************************************
+" *****************************************************************************
 "" Vim-Plug core to manage all plugins link ref https://github.com/junegunn/vim-plug
 "*****************************************************************************
 " Double quote beginning mean this is commented
@@ -59,6 +58,7 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
 Plug 'honza/vim-snippets'
 " a simple, unified, single tabpage interface that lets you easily review all changed files for any git rev.
 Plug 'sindrets/diffview.nvim'
+Plug 'nvim-lua/plenary.nvim'
 " https://github.com/lukas-reineke/indent-blankline.nvim
 " Plug 'lukas-reineke/indent-blankline.nvim'
 " https://vimawesome.com/plugin/vim-quickrun
@@ -69,6 +69,10 @@ Plug 'sindrets/diffview.nvim'
 " Plug 'tpope/vim-obsession'
 " scrollbar for vim 
 " Plug 'Xuyuanp/scrollbar.nvim'
+" https://github.com/ryenguyen7411/any-jump.vim
+Plug 'pechorin/any-jump.vim'
+" https://github.com/tveskag/nvim-blame-line
+Plug 'tveskag/nvim-blame-line'
 call plug#end()
 
 
@@ -140,6 +144,9 @@ set smartcase                             " depend of pattern lower or Upper
 " set incsearch                             " set increment next search result
 " https://vimhelp.org/options.txt.html#%27statusline%27
 set tabline=%f\ \|\ %L
+set undofile      " Maintain undo history between sessions
+set undodir=~/.config/nvim/undodir
+set guicursor=i:block 
 "*****************************************************************************
 "" Visual, Theme Settings
 "*****************************************************************************
@@ -393,7 +400,7 @@ nnoremap <silent><leader>j %
 vnoremap <silent><leader>j %
 
 " Fast save
-nnoremap <silent><leader>s :w!<cr>
+nnoremap <silent><leader>s :wa!<cr>
 " inoremap <silent><leader>s <ESC>:w!<cr>
 " split current window vertical on the right 'set splitright'  
 nnoremap <silent><Leader>w :vsplit<CR>
@@ -414,8 +421,8 @@ vnoremap J :m '>+1<CR>gv=gv
 vnoremap K :m '<-2<CR>gv=gv
 
 " In normal mode map to go faster up, down
-nnoremap J 5j
-nnoremap K 5k
+nnoremap J 10j
+nnoremap K 10k
 
 " Working with NERDTree
 " press `m` to call menu @ cursor position to (add,delete file)
@@ -534,7 +541,8 @@ endif
 " Command :CocConfig to open coc-settings.json file
 " COC. Please remember run command $:CocInstall <extensions> to install
 " extensions. Examples: CocInstall coc-eslint
-let g:coc_global_extensions = ['coc-css','coc-eslint8', 'coc-html' ,'coc-eslint', 'coc-json', 'coc-tsserver','coc-stylelintplus','coc-snippets', 'coc-pairs']
+" let g:coc_global_extensions = ['coc-css','coc-eslint8', 'coc-html' ,'coc-eslint', 'coc-json', 'coc-tsserver','coc-stylelintplus','coc-snippets', 'coc-pairs']
+let g:coc_global_extensions = ['coc-css','coc-eslint8', 'coc-html' , 'coc-json', 'coc-tsserver','coc-stylelintplus','coc-snippets', 'coc-pairs']
 
 " bind `tab` for autocompletion https://stackoverflow.com/questions/67370086/how-to-remap-coc-nvim-autocomplete-key
 inoremap <silent><expr> <tab> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<TAB>"
@@ -568,9 +576,22 @@ iabbrev thí this
 iabbrev ré res
 iabbrev uéc usec
 iabbrev í is
+iabbrev @ @apply
 " iabbrev clg console.log()<Left>
 " iabbrev cc /*<CR><CR>/<Up> 
+" any-jump https://github.com/ryenguyen7411/any-jump.vim
+let g:any_jump_disable_default_keybindings = 1
 
+" Normal mode: Jump to definition under cursor
+nnoremap <silent><leader>d :AnyJump<CR>
+" Normal mode: open last closed search window again
+nnoremap <silent><leader>r :AnyJumpLastResults<CR>
+" transparent popup preview any jumps
+" au VimEnter * highlight NormalFloat ctermbg=NONE guibg=NONE
+"
+"
+"nvim-blame-line https://github.com/tveskag/nvim-blame-line
+nnoremap <silent><leader>z :ToggleBlameLine<CR>
 " https://github.com/neoclide/coc.nvim/issues/856
 let g:coc_node_path = '/home/sen/.nvm/versions/node/v14.17.6/bin/node'
 
