@@ -110,7 +110,7 @@ set splitright                          " Vertical splits will automatically be 
 set t_Co=256                            " Support 256 colors
 set conceallevel=0                      " So that I can see `` in markdown files
 set lazyredraw				                  " Avoids updating the screen before commands are completed
-set cursorline                          " Enable highlighting of the current line
+" set cursorline                          " Enable highlighting of the current line
 set showtabline=2                       " Always show tabs
 " set backspace=indent,eol,start          " Fix backspace indent
 set mouse=a  				                    " Enable your mouse
@@ -146,7 +146,9 @@ set smartcase                             " depend of pattern lower or Upper
 set tabline=%f\ \|\ %L
 set undofile      " Maintain undo history between sessions
 set undodir=~/.config/nvim/undodir
-set guicursor=i:block 
+" set mouse cursor block when insert mode"
+" set guicursor=i:block  
+"
 "*****************************************************************************
 "" Visual, Theme Settings
 "*****************************************************************************
@@ -168,9 +170,15 @@ hi! Normal ctermbg=NONE guibg=NONE
 hi! NonText ctermbg=NONE guibg=NONE guifg=NONE ctermfg=NONE
 
 " Customize cursor line
-highlight CursorLine gui=underline cterm=NONE  
-" highlight CursorLineNr cterm=Bold ctermbg=Black ctermfg=White
+"" Enable CursorLine
+set cursorline
+highlight CursorLine gui=underline 
+:autocmd InsertEnter * highlight CursorLine gui=NONE 
+:autocmd InsertLeave * highlight CursorLine gui=underline 
 
+" gui=underline guifg=NONE guibg=NONE
+" highlight CursorLine gui=underline guifg=NONE guibg=NONE
+" highlight CursorLineNr guifg=lightblue 
 
 "let g:onedark_hide_endofbuffer=1
 "let g:onedark_terminal_italics=1
@@ -295,6 +303,8 @@ augroup END
 
 autocmd FileType scss setl iskeyword+=@-@
 
+autocmd BufEnter :e ++ff=dos<CR>
+
 "*****************************************************************************
 "" Mappings, nnore = nonrecursive (De quy) mean call function inside function
 " create loop and can be infinited loop
@@ -406,11 +416,15 @@ nnoremap <silent><leader>s :wa!<cr>
 nnoremap <silent><Leader>w :vsplit<CR>
 " split current window horizontal on bottom 'set splitbelow'
 nnoremap <silent><Leader>W :split<CR>
+
 " quick jump to first non-blank of row
 nnoremap <silent><leader>h ^
+
 " quick jump to last non-blank of row
 nnoremap <silent><leader>l $
 
+" Insert new line below the current line in normal mode
+nnoremap O o<Esc>k
 
 " In Visual Mode Indent shifting > and <
 vnoremap < <gv
@@ -479,6 +493,7 @@ set wildmode=list:longest,list:full
 set wildignore+=*.o,*.obj,.git,*.rbc,*.pyc,__pycache__
 let $FZF_DEFAULT_COMMAND =  "find * -path '*/\.*' -prune -o -path 'node_modules/**' -prune -o -path 'target/**' -prune -o -path 'dist/**' -prune -o  -type f -print -o -type l -print 2> /dev/null"
 
+
 " Instal fzf with preview hightlight color install bat as link color preview
 " https://github.com/junegunn/fzf.vim#dependencies    
 " https://awesomeopensource.com/project/yuki-yano/fzf-preview.vim
@@ -525,7 +540,7 @@ endif
 if executable('rg')
   let $FZF_DEFAULT_COMMAND = 'rg --files --hidden --follow --glob "!.git/*"'
   set grepprg=rg\ --vimgrep
-  command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>).'| tr -d "\017"', 1, <bang>0)
+  command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --hidden --follow --glob "!node_modules/*" --color "always" '.shellescape(<q-args>).'| tr -d "\017"', 1, <bang>0)
 endif
 
 " NERDTree configuration
@@ -590,8 +605,16 @@ nnoremap <silent><leader>r :AnyJumpLastResults<CR>
 " au VimEnter * highlight NormalFloat ctermbg=NONE guibg=NONE
 "
 "
+" remove ^M removed with command :e ++ff=dos 
+nnoremap <silent><leader>t :e ++ff=dos<CR>
+"
 "nvim-blame-line https://github.com/tveskag/nvim-blame-line
 nnoremap <silent><leader>z :ToggleBlameLine<CR>
 " https://github.com/neoclide/coc.nvim/issues/856
 let g:coc_node_path = '/home/sen/.nvm/versions/node/v14.17.6/bin/node'
 
+"https://github.com/airblade/vim-gitgutter/issues/516
+" untested but you get the idea
+let g:gitgutter_diff_base = 'master'
+:command Gm let g:gitgutter_diff_base = 'master' | GitGutter
+:command Gb let g:gitgutter_diff_base = 'HEAD~0' | GitGutter
