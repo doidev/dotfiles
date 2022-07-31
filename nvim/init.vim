@@ -73,6 +73,7 @@ Plug 'nvim-lua/plenary.nvim'
 Plug 'pechorin/any-jump.vim'
 " https://github.com/tveskag/nvim-blame-line
 Plug 'tveskag/nvim-blame-line'
+
 call plug#end()
 
 
@@ -581,6 +582,13 @@ set foldmethod=marker
 nmap gv :DiffviewClose<CR>
 nmap go :DiffviewOpen<CR>
 nmap gp :DiffviewFileHistory<CR>
+nmap gm :DiffviewOpen master<CR>
+lua << EOF
+require("diffview").setup({
+use_icons = false,
+})
+EOF
+
 " /diffview.nvim'
 "
 "
